@@ -1,10 +1,10 @@
 import React from "react";
 import TextInput from "../inputs/TextInput";
-import TextareaInput from "../inputs/TextAreaInput";
+import TextareaInput from "../inputs/TextareaInput";
 
 const BasicInfoSection: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-b border-gray-300 pb-6 mb-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-b border-gray-300 pb-6">
       <TextInput name="fullName" label="Full Name" />
       <TextInput name="email" label="Email" />
       <TextInput name="phone" label="Phone Number" />
