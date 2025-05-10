@@ -1,7 +1,7 @@
 import { Font } from "@react-pdf/renderer"
 
-const base_url: string = import.meta.env.BASE_URL
-const fonts_url: string = `${base_url}/fonts/`
+// const base_url: string = import.meta.env.BASE_URL
+// const fonts_url: string = `${base_url}/fonts/`
 
 Font.register({
     family: "Arial",
