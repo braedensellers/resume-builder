@@ -6,21 +6,18 @@ import SkillsSection from "./sections/SkillsSection"
 import EducationSection from "./sections/EducationSection"
 import CertificationsSection from "./sections/CertificationsSection"
 import ResumePreview from "./ResumePreview"
+import { PDFDownloadLink } from "@react-pdf/renderer"
+import ResumeDocument from "./ResumeDocument"
 
 const ResumeBuilder: React.FC = () => {
   const methods = useForm()
   const [showPreview, setShowPreview] = useState(false)
   const [font, setFont] = useState("Arial")
 
-  const onSubmit = (data: any) => {
-    console.log(data)
-  }
-
   return (
     <div className="max-w-4xl mx-auto p-4 space-y-4">
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-
+        <form>
           <BasicInfoSection />
           <WorkExperienceSection />
           <SkillsSection />
@@ -47,12 +44,13 @@ const ResumeBuilder: React.FC = () => {
                   <option value="Calibri">Calibri</option>
                   <option value="Times New Roman">Times New Roman</option>
                 </select>
-                <button
-                  type="submit"
+                <PDFDownloadLink
+                  document={<ResumeDocument data={methods.getValues()} fontFamily={font} />}
+                  fileName="resume.pdf"
                   className="px-4 py-2 bg-blue-600 text-white rounded-md cursor-pointer"
                 >
-                  Download as PDF
-                </button>
+                  {({ loading }) => (loading ? "Preparing PDF..." : "Download as PDF")}
+                </PDFDownloadLink>
               </>
             )}
           </div>
