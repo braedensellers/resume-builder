@@ -24,6 +24,13 @@ const SkillsSection: React.FC = () => {
     setSkills((prev) => prev.filter((skill) => skill !== skillToRemove));
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault()
+      addSkill()
+    }
+  } 
+
   return (
     <div className="my-4 border-b border-gray-300 pb-4">
       <h2 className="text-xl font-semibold mb-2">Skills</h2>
@@ -32,6 +39,7 @@ const SkillsSection: React.FC = () => {
           type="text"
           value={skillInput}
           onChange={(e) => setSkillInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button

@@ -16,12 +16,16 @@ const styles = StyleSheet.create({
     lineHeight: 1.5,
   },
   name: {
-    fontSize: 18,
+    fontSize: 24,
     textAlign: "center",
     fontWeight: "bold",
-    marginBottom: 5,
+    marginBottom: 14,
   },
   location: {
+    fontSize: 10,
+    textAlign: "center",
+  },
+  jobLocation: {
     fontSize: 10,
     fontStyle: "italic",
     marginBottom: -10,
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   subHeading: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: "bold",
   },
   field: {
@@ -48,16 +52,16 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   dates: {
-    fontSize: 10.5,
+    fontSize: 10,
     fontWeight: "bold",
     marginBottom: -10,
   },
   bulletPoint: {
-    fontSize: 10.5,
+    fontSize: 10,
     marginLeft: 10,
   },
   skillList: {
-    fontSize: 11,
+    fontSize: 10,
     marginBottom: 10,
   },
   divider: {
@@ -154,7 +158,7 @@ const ResumeDocument = ({ data }: { data: any }) => {
                       {job.role && <Text style={styles.field}>{job.role}</Text>}
                     </View>
                     <View style={{ flex: 1, alignItems: "flex-end" }}>
-                      {job.location && <Text style={styles.location}>
+                      {job.location && <Text style={styles.jobLocation}>
                         {job.location}
                       </Text>}
                     </View>
