@@ -4,44 +4,45 @@ import {
   Text,
   View,
   StyleSheet,
-} from "@react-pdf/renderer";
-import { format } from "date-fns";
+} from "@react-pdf/renderer"
+import { format } from "date-fns"
+import "../fonts"
 
 const styles = StyleSheet.create({
   page: {
     fontSize: 10,
-    padding: 40,
-    fontFamily: "Helvetica",
+    padding: 30,
     color: "#000",
-    lineHeight: 1.5,
+    lineHeight: 1,
   },
   name: {
     fontSize: 24,
     textAlign: "center",
     fontWeight: "bold",
-    marginBottom: 14,
+    marginBottom: 18,
   },
   location: {
     fontSize: 10,
     textAlign: "center",
+    marginBottom: 4,
   },
   jobLocation: {
     fontSize: 10,
     fontStyle: "italic",
-    marginBottom: -10,
   },
   contact: {
     textAlign: "center",
     fontSize: 10,
-    marginBottom: 16,
+    marginBottom: 10,
   },
   section: {
-    marginBottom: 12,
+    marginBottom: 8,
   },
   sectionTitle: {
     fontSize: 12,
     fontWeight: "bold",
     textTransform: "uppercase",
+    marginBottom: 8,
   },
   subHeading: {
     fontSize: 10,
@@ -82,7 +83,7 @@ const formatDate = (value?: string) => {
 
 const Divider = () => <View style={styles.divider} />;
 
-const ResumeDocument = ({ data }: { data: any }) => {
+const ResumeDocument = ({ data, fontFamily }: { data: any, fontFamily: string }) => {
   if (!data) return null;
 
   const {
@@ -104,7 +105,7 @@ const ResumeDocument = ({ data }: { data: any }) => {
 
   return (
     <Document>
-      <Page style={styles.page}>
+      <Page style={{ ...styles.page, fontFamily }}>
         {fullName && <Text style={styles.name}>{fullName}</Text>}
         {location && <Text style={styles.location}>{location}</Text>}
         <Text style={styles.contact}>
@@ -173,36 +174,52 @@ const ResumeDocument = ({ data }: { data: any }) => {
           </>
         )}
 
-        {/* Education */}
         {isFilled(education) && (
           <>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Education</Text>
               <Divider />
-              {education.map((edu: any, i: number) => (
-                <View key={i} style={{ marginBottom: 6 }}>
-                  <Text style={styles.subHeading}>
-                    {edu.institutionName} | {edu.startDate} – {edu.endDate}
-                  </Text>
-                  <Text style={styles.dates}>
-                    {edu.degree} | GPA: {edu.gpa}
-                  </Text>
+              {education.map((education: any, i: number) => (
+                <View key={i} style={{ marginBottom: 10 }}>
+                  <View style={{ flexDirection: "row"}}>
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.subHeading}>
+                        {education.institution}
+                      </Text>
+                    </View>
+                    <View style={{ flex: 1, alignItems: "flex-end" }}>
+                      {(education.startDate || education.endDate) && (
+                        <Text style={styles.dates}>
+                          {formatDate(education.startDate)} – {education.currentlyAttending ? "Present" : formatDate(education.endDate)}
+                        </Text>
+                      )}
+                    </View>
+                  </View>
+
+                  <View style={{ flexDirection: "row" }}>
+                    <View style={{ flex: 1 }}>
+                      {education.degree && <Text style={styles.field}>{education.degree}</Text>}
+                    </View>
+                    <View style={{ flex: 1, alignItems: "flex-end" }}>
+                      {education.gpa && <Text style={styles.jobLocation}>
+                        {education.gpa}
+                      </Text>}
+                    </View>
+                  </View>
                 </View>
               ))}
             </View>
           </>
         )}
 
-        {/* Certifications */}
         {isFilled(certifications) && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Certifications</Text>
             <Divider />
             {certifications.map((cert: any, i: number) => (
               <View key={i} style={{ marginBottom: 6 }}>
-                <Text style={styles.subHeading}>{cert.name}</Text>
-                {cert.issuer && <Text style={styles.dateLocation}>{cert.issuer}</Text>}
-                {cert.date && <Text style={styles.dateLocation}>{cert.date}</Text>}
+                {cert.title && <Text style={styles.subHeading}>{cert.title}</Text>}
+                {cert.description && <Text style={styles.field}>{cert.description}</Text>}
               </View>
             ))}
           </View>

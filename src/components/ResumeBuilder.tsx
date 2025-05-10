@@ -10,6 +10,7 @@ import ResumePreview from "./ResumePreview"
 const ResumeBuilder: React.FC = () => {
   const methods = useForm()
   const [showPreview, setShowPreview] = useState(false)
+  const [font, setFont] = useState("Helvetica")
 
   const onSubmit = (data: any) => {
     console.log(data)
@@ -29,6 +30,17 @@ const ResumeBuilder: React.FC = () => {
           <CertificationsSection />
 
           <div className="flex gap-4 mt-6">
+            <select
+              value={font}
+              onChange={(e) => setFont(e.target.value)}
+              className="border px-2 py-1 rounded"
+            >
+              <option value="Helvetica">Helvetica</option>
+              <option value="Arial">Arial</option>
+              <option value="Calibri">Calibri</option>
+              <option value="Times New Roman">Times New Roman</option>
+            </select>
+
             <button
               type="submit"
               className="px-4 py-2 bg-blue-600 text-white rounded-md"
@@ -48,7 +60,7 @@ const ResumeBuilder: React.FC = () => {
 
         {showPreview && (
           <div className="mt-8 border rounded-md overflow-hidden" style={{ height: "90vh" }}>
-            <ResumePreview data={methods.getValues()} />
+            <ResumePreview data={methods.getValues()} fontFamily={font} />
           </div>
         )}
       </FormProvider>
