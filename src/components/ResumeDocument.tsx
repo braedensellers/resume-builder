@@ -126,13 +126,6 @@ const ResumeDocument = ({ data, fontFamily }: { data: any, fontFamily: string })
   const isFilled = (val: any) =>
     Array.isArray(val) ? val.length > 0 : !!val;
 
-  const normalizeUrl = (url: string) => {
-    if (!url.startsWith("http://") && !url.startsWith("https://")) {
-      return `https://${url}`;
-    }
-    return url;
-  };
-
   return (
     <Document>
       <Page style={{ ...styles.page, fontFamily }}>
@@ -145,7 +138,7 @@ const ResumeDocument = ({ data, fontFamily }: { data: any, fontFamily: string })
               value: item,
               key: `info-${i}`,
             })),
-            ...(links || []).filter(Boolean).map((url, i) => ({
+            ...(links || []).filter(Boolean).map((url: string, i: number) => ({
               type: "link" as const,
               value: url,
               href: url.startsWith("http") ? url : `https://${url}`,

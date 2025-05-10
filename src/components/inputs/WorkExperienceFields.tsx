@@ -1,9 +1,9 @@
-import { useFormContext, useWatch } from "react-hook-form";
-import TextInput from "../inputs/TextInput";
-import TextareaInput from "../inputs/TextAreaInput";
-import DatePickerInput from "../inputs/DatePickerInput";
-import { FiArrowDown, FiArrowUp, FiTrash2 } from "react-icons/fi";
-import { BiPlusCircle } from "react-icons/bi";
+import { useFormContext, useWatch } from "react-hook-form"
+import TextInput from "../inputs/TextInput"
+import TextareaInput from "../inputs/TextareaInput"
+import DatePickerInput from "../inputs/DatePickerInput"
+import { FiArrowDown, FiArrowUp, FiTrash2 } from "react-icons/fi"
+import { BiPlusCircle } from "react-icons/bi"
 
 interface WorkExperienceFieldsProps {
   index: number;
@@ -76,6 +76,7 @@ const WorkExperienceFields: React.FC<WorkExperienceFieldsProps> = ({
                         {...register(
                             `workExperience.${index}.bulletPoints.${bIndex}`
                         )}
+                        label=""
                     />
                 </div>
                 <button

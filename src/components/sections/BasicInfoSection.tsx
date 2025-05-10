@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import TextInput from "../inputs/TextInput";
-import TextareaInput from "../inputs/TextareaInput";
-import { IoClose } from "react-icons/io5";
-import { useFormContext } from "react-hook-form";
+import React, { useEffect, useState } from "react"
+import TextInput from "../inputs/TextInput"
+import TextareaInput from "../inputs/TextareaInput"
+import { IoClose } from "react-icons/io5"
+import { useFormContext } from "react-hook-form"
 
 const BasicInfoSection: React.FC = () => {
   const [linkInput, setLinkInput] = useState("");
