@@ -30,24 +30,6 @@ const ResumeBuilder: React.FC = () => {
           <CertificationsSection />
 
           <div className="flex gap-4 mt-6">
-            <select
-              value={font}
-              onChange={(e) => setFont(e.target.value)}
-              className="border px-2 py-1 rounded"
-            >
-              <option value="Helvetica">Helvetica</option>
-              <option value="Arial">Arial</option>
-              <option value="Calibri">Calibri</option>
-              <option value="Times New Roman">Times New Roman</option>
-            </select>
-
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md"
-            >
-              Submit
-            </button>
-
             <button
               type="button"
               onClick={() => setShowPreview(!showPreview)}
@@ -55,6 +37,27 @@ const ResumeBuilder: React.FC = () => {
             >
               {showPreview ? "Hide Preview" : "Show Preview"}
             </button>
+
+            {showPreview && (
+              <>
+                <select
+                  value={font}
+                  onChange={(e) => setFont(e.target.value)}
+                  className="border px-2 py-1 rounded"
+                >
+                  <option value="Helvetica">Helvetica</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Calibri">Calibri</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                </select>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md cursor-pointer"
+                >
+                  Download as PDF
+                </button>
+              </>
+            )}
           </div>
         </form>
 

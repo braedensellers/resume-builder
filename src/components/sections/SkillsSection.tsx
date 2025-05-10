@@ -45,7 +45,7 @@ const SkillsSection: React.FC = () => {
         <button
           type="button"
           onClick={addSkill}
-          className="bg-blue-500 text-white px-4 py-1 rounded"
+          className="bg-blue-500 text-white px-4 py-1 rounded cursor-pointer"
         >
           Add Skill
         </button>

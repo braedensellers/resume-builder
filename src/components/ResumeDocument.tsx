@@ -4,9 +4,11 @@ import {
   Text,
   View,
   StyleSheet,
+  Link,
 } from "@react-pdf/renderer"
 import { format } from "date-fns"
 import "../fonts"
+import React from "react";
 
 const styles = StyleSheet.create({
   page: {
@@ -30,10 +32,21 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontStyle: "italic",
   },
-  contact: {
-    textAlign: "center",
-    fontSize: 10,
+  contactRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "wrap",
     marginBottom: 10,
+  },
+  contactItem: {
+    fontSize: 10,
+    marginHorizontal: 4,
+  },
+  contactItemLink: {
+    fontSize: 10,
+    color: "blue",
+    textDecoration: "underline",
+    marginHorizontal: 4,
   },
   section: {
     marginBottom: 8,
@@ -81,18 +94,28 @@ const formatDate = (value?: string) => {
   }
 }
 
-const Divider = () => <View style={styles.divider} />;
+function formatPhoneNumber(phoneNumber: string): string {
+  const cleaned = ('' + phoneNumber).replace(/\D/g, '')
+  const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+
+  if (match) {
+    return `(${match[1]}) ${match[2]}-${match[3]}`
+  }
+  
+  return phoneNumber
+}
+
+const Divider = () => <View style={styles.divider} />
 
 const ResumeDocument = ({ data, fontFamily }: { data: any, fontFamily: string }) => {
-  if (!data) return null;
+  if (!data) return null
 
   const {
     fullName,
     location,
     email,
     phone,
-    github,
-    linkedin,
+    links,
     summary,
     skills,
     workExperience,
@@ -103,14 +126,53 @@ const ResumeDocument = ({ data, fontFamily }: { data: any, fontFamily: string })
   const isFilled = (val: any) =>
     Array.isArray(val) ? val.length > 0 : !!val;
 
+  const normalizeUrl = (url: string) => {
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      return `https://${url}`;
+    }
+    return url;
+  };
+
   return (
     <Document>
       <Page style={{ ...styles.page, fontFamily }}>
         {fullName && <Text style={styles.name}>{fullName}</Text>}
         {location && <Text style={styles.location}>{location}</Text>}
-        <Text style={styles.contact}>
-          {[email, phone, github, linkedin].filter(Boolean).join(" | ")}
-        </Text>
+        <View style={styles.contactRow}>
+          {[
+            ...[email, formatPhoneNumber(phone)].filter(Boolean).map((item, i) => ({
+              type: "text" as const,
+              value: item,
+              key: `info-${i}`,
+            })),
+            ...(links || []).filter(Boolean).map((url, i) => ({
+              type: "link" as const,
+              value: url,
+              href: url.startsWith("http") ? url : `https://${url}`,
+              key: `link-${i}`,
+            })),
+          ].map((item, i, arr) => (
+            <React.Fragment key={item.key}>
+              {item.type === "text" ? (
+                <Text style={{ fontSize: 10 }}>{item.value}</Text>
+              ) : (
+                <Link
+                  src={item.href}
+                  style={{
+                    fontSize: 10,
+                    color: "blue",
+                    textDecoration: "underline",
+                  }}
+                >
+                  {item.value}
+                </Link>
+              )}
+              {i < arr.length - 1 && (
+                <Text style={{ fontSize: 10, marginHorizontal: 4 }}>|</Text>
+              )}
+            </React.Fragment>
+          ))}
+        </View>
 
         {summary && (
           <>
