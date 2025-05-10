@@ -10,7 +10,7 @@ import ResumePreview from "./ResumePreview"
 const ResumeBuilder: React.FC = () => {
   const methods = useForm()
   const [showPreview, setShowPreview] = useState(false)
-  const [font, setFont] = useState("Helvetica")
+  const [font, setFont] = useState("Arial")
 
   const onSubmit = (data: any) => {
     console.log(data)
@@ -33,7 +33,7 @@ const ResumeBuilder: React.FC = () => {
             <button
               type="button"
               onClick={() => setShowPreview(!showPreview)}
-              className="px-4 py-2 bg-gray-700 text-white rounded-md"
+              className="px-4 py-2 bg-gray-700 text-white rounded-md cursor-pointer"
             >
               {showPreview ? "Hide Preview" : "Show Preview"}
             </button>
@@ -43,9 +43,8 @@ const ResumeBuilder: React.FC = () => {
                 <select
                   value={font}
                   onChange={(e) => setFont(e.target.value)}
-                  className="border px-2 py-1 rounded"
+                  className="border px-2 py-1 rounded cursor-pointer"
                 >
-                  <option value="Helvetica">Helvetica</option>
                   <option value="Arial">Arial</option>
                   <option value="Calibri">Calibri</option>
                   <option value="Times New Roman">Times New Roman</option>
